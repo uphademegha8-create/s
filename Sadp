@@ -1,0 +1,576 @@
+
+
+SLIP1
+
+Q.1) Write an AngularJS script for addition of two numbers using ng-init, ng-model & ng-bind. And also demonstrate ng-show, ng-disabled, ng-click directives on button component.
+
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS Addition Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-init="num1=0; num2=0; result=0; showResult=false">
+  <h2>Addition of Two Numbers</h2>
+  <p>
+    Number 1: <input type="number" ng-model="num1">
+  </p>
+  <p>
+    Number 2: <input type="number" ng-model="num2">
+  </p>
+  <p>
+    <button
+      ng-click="result = num1 + num2; showResult=true"
+      ng-disabled="num1 === null || num2 === null" <!--used to enable or disable the HTML elements.-->
+      Add Numbers
+    </button>
+  </p>
+  <div ng-show="showResult">
+    <h3>Result:</h3>
+    <p><strong ng-bind="result"></strong></p>
+  </div>
+</body>
+</html>
+
+Q.2) Create a Node.js application that reads data from multiple files asynchronously
+using promises and async/await.
+
+CRAETE 2 text files : file1.txt and file2.txt
+
+const fs = require('fs').promises;
+
+async function readFiles() {
+  try {
+    const [data1, data2] = await Promise.all([
+      fs.readFile('file1.txt', 'utf8'),
+      fs.readFile('file2.txt', 'utf8')
+    ]);
+
+    console.log('Contents of file1.txt:\n', data1);
+    console.log('Contents of file2.txt:\n', data2);
+  } catch (err) {
+    console.error('Error reading files:', err);
+  }
+}
+
+readFiles();
+
+
+SLIP 2
+Q.1) Write an AngularJS script to print details of bank (bank name, MICR code, IFC
+code, address etc.) in tabular form using ng-repeat.
+<!DOCTYPE html>
+<html ng-app="bankApp">
+<head>
+  <meta charset="utf-8">
+  <title>Bank Details with AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="BankController">
+  <h2>Bank Details</h2>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Bank Name</th>
+        <th>MICR Code</th>
+        <th>IFSC Code</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="bank in banks">
+        <td>{{ bank.name }}</td>
+        <td>{{ bank.micr }}</td>
+        <td>{{ bank.ifsc }}</td>
+        <td>{{ bank.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    angular.module('bankApp', [])
+      .controller('BankController', function($scope) {
+        $scope.banks = [
+          { name: "State Bank of India", micr: "400002003", ifsc: "SBIN0005900", address: "Mumbai, Maharashtra" },
+          { name: "HDFC Bank", micr: "110240005", ifsc: "HDFC0000123", address: "PUNE, India" },
+          { name: "ICICI Bank", micr: "560229002", ifsc: "ICIC0000456", address: "NASHIK, Karnataka" }
+        ];
+      });
+  </script>
+</body>
+</html>
+
+SLIP 3
+Q.1) Write an AngularJS script to display list of games stored in an array on click of
+button using ng-click and also demonstrate ng-init, ng-bind directive of AngularJS.
+
+
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>Game List with AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-init="games=['Football','Cricket','Chess','Tennis']; showList=false; title='Click to show game list'">
+
+  <h2 ng-bind="title"></h2>
+
+  <button ng-click="showList = !showList">
+    Show/Hide Games
+  </button>
+
+  <ul ng-show="showList">
+    <li ng-repeat="game in games">{{ game }}</li>
+  </ul>
+
+</body>
+</html>
+
+Q.2) Find a company with a workforce greater than 30 in the array (use find by
+id method)
+
+const companies = [
+  { id: 1, name: "TechCorp", workforce: 25 },
+  { id: 2, name: "BizSolutions", workforce: 40 },
+  { id: 3, name: "ITSolution", workforce: 18 },
+  { id: 4, name: "MegaTech", workforce: 10 }
+];
+
+// Use find to locate the first company with workforce > 30
+const largeCompany = companies.find(company => company.workforce > 30);
+
+if (largeCompany) {
+  console.log("Company with workforce > 30 found:", largeCompany);
+} else {
+  console.log("No company with workforce > 30 found.");
+}
+
+
+SLIP 4
+Q.1) Fetch the details using ng-repeat in AngularJS
+
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>Company List with AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-init="companies=[
+    {id: 1, name: 'TechCorp', workforce: 25},
+    {id: 2, name: 'BizSolutions', workforce: 40},
+    {id: 3, name: 'InnoWare', workforce: 18},
+    {id: 4, name: 'MegaTech', workforce: 30}
+  ]">
+
+  <h2>Companies with Workforce > 30</h2>
+
+  <table border="1" cellpadding="8">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Workforce</th>
+    </tr>
+    <tr ng-repeat="company in companies" ng-if="company.workforce > 30">
+      <td>{{ company.id }}</td>
+      <td>{{ company.name }}</td>
+      <td>{{ company.workforce }}</td>
+    </tr>
+  </table>
+
+</body>
+</html>
+
+
+
+Q.2) Express.js application to include middleware for parsing request bodies (e.g.,
+JSON, form data) and validating input data.
+
+const express = require('express');
+const app = express();
+const port = 8084;
+// Middleware for parsing JSON and form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Custom middleware for validating input
+function validateUserInput(req, res, next) {
+  const { name, email } = req.body;
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name and email are required.' });
+  }
+  // Simple email pattern check
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format.' });
+  }
+  next(); // All good, move on
+}
+// Route using middleware
+app.post('/submit', validateUserInput, (req, res) => {
+  const { name, email } = req.body;
+  res.json({ message: 'Data received successfully!', data: { name, email } });
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+OR
+
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+const validateUserInput = (req, res, next) => {
+  const { name, email } = req.body;
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!name || !email || !validEmail.test(email))
+    return res.status(400).json({ error: 'Invalid input.' });
+  next();
+};
+
+app.post('/submit', validateUserInput, (req, res) => {
+  res.json({ message: 'Data received!', data: req.body });
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+
+
+
+
+SLIP 5
+Q.1) Create a simple Angular component that takes input data and displays it.
+
+STEPS
+create app:  ng new myapp
+myapp→ src→ app→ ng generate component display-data
+
+
+app.component.html
+
+ <h1>Parent Component</h1>
+    <app-display-data [message]="parentMessage"></app-display-data>
+
+app.component.ts
+
+    import { Component } from '@angular/core';
+    import { CommonModule } from '@angular/common';
+    import { RouterOutlet } from '@angular/router';
+    import { DisplayDataComponent } from './display-data/display-data.component'; // Import the new component
+
+ @Component({
+  selector: 'app-root',
+  standalone: true,
+ imports: [CommonModule, RouterOutlet, DisplayDataComponent], // Add DisplayDataComponent to imports
+      templateUrl: './app.component.html',
+      styleUrl: './app.component.css'
+    })
+    export class AppComponent {
+      parentMessage: string = 'Hello from the parent component!';
+    }
+
+app→ display-data folder
+
+display-data.component.html
+
+    <div>
+      <h2>Displayed Data:</h2>
+      <p>{{ message }}</p>
+    </div>
+
+
+
+
+
+display-data.component.ts
+
+    import { Component, Input } from '@angular/core';
+    import { CommonModule } from '@angular/common'; // Import CommonModule if using standalone component
+
+    @Component({
+      selector: 'app-display-data',
+      standalone: true, // Mark as standalone if not part of a module
+      imports: [CommonModule], // Include CommonModule if standalone
+      templateUrl: './display-data.component.html',
+      styleUrl: './display-data.component.css'
+    })
+    export class DisplayDataComponent {
+      @Input() message: string = ''; // Declare an input property named 'message'
+    }
+
+
+Q.2) Implement a simple server using Node.js.
+
+
+
+SLIP 6
+
+Q.2) Find a company with a workforce greater than 30 in the array. (Using find by id method)
+
+const companies = [
+  { id: 1, name: "TechCorp", workforce: 25 },
+  { id: 2, name: "BizSolutions", workforce: 40 },
+  { id: 3, name: "ITSolution", workforce: 18 },
+  { id: 4, name: "MegaTech", workforce: 10 }
+];
+
+// Use find to locate the first company with workforce > 30
+const largeCompany = companies.find(company => company.workforce > 30);
+
+if (largeCompany) {
+  console.log("Company with workforce > 30 found:", largeCompany);
+} else {
+  console.log("No company with workforce > 30 found.");
+}
+
+
+SLIP7
+
+Q.1) Create a Node.js application that reads data from multiple files asynchronously using promises and async/await.
+
+CREATE 3 TEXT FILES:file1.txt ,file2.txt,file3.txt
+
+const fs = require('fs').promises; // Import the promise-based fs module
+
+async function readMultipleFiles(filePaths) {
+  try {
+    const readPromises = filePaths.map(filePath => fs.readFile(filePath, 'utf8'));
+    const fileContents = await Promise.all(readPromises);
+    return fileContents;
+  } catch (error) {
+    console.error('Error reading files:', error);
+    throw error; // Re-throw the error for external handling
+  }
+}
+
+// Define the paths to the files you want to read
+const filesToRead = ['file1.txt', 'file2.txt', 'file3.txt'];
+
+// Call the async function and handle the results
+readMultipleFiles(filesToRead)
+  .then(contents => {
+    console.log('Contents of all files:');
+    contents.forEach((content, index) => {
+      console.log(`--- Content of ${filesToRead[index]} ---`);
+      console.log(content);
+    });
+  })
+  .catch(error => {
+    console.error('Failed to read one or more files:', error);
+  });
+
+slip 9
+
+Q.1) Find a company with a workforce greater than 30 in the array. (Using find by id method).
+
+const companies = [
+  { id: 1, name: "TechCorp", workforce: 25 },
+  { id: 2, name: "BizSolutions", workforce: 40 },
+  { id: 3, name: "ITSolution", workforce: 18 },
+  { id: 4, name: "MegaTech", workforce: 10 }
+];
+
+// Use find to locate the first company with workforce > 30
+const largeCompany = companies.find(company => company.workforce > 30);
+
+if (largeCompany) {
+  console.log("Company with workforce > 30 found:", largeCompany);
+} else {
+  console.log("No company with workforce > 30 found.");
+}
+
+SLIP 10
+Q.1) Implement a simple server using Node.js.
+
+SLIP 11
+Q.1) Develop an Express.js application that defines routes for Create operations on a resource (Movie).
+
+Q.2) Create Angular application that print the name of students who play basketball
+using filter and map method.
+
+SLIP 12
+Q.1) Write an AngularJS script to print details of Employee (employee name, employee Id,Pin code, address etc.) in tabular form using ng-repeat.
+
+<!DOCTYPE html>
+<html ng-app="employeeApp">
+<head>
+  <meta charset="utf-8">
+  <title>Employee Details</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body ng-controller="EmployeeController">
+
+  <h2 style="text-align: center;">Employee Details</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Employee ID</th>
+        <th>Address</th>
+        <th>Pin Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="emp in employees">
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.address }}</td>
+        <td>{{ emp.pincode }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    angular.module('employeeApp', [])
+      .controller('EmployeeController', function($scope) {
+        $scope.employees = [
+          { name: 'RAM', id: 'E101', address: 'nashik', pincode: '422201' },
+          { name: 'SHAM', id: 'E102', address: 'pune', pincode: '422202' },
+          { name: 'KARAN', id: 'E103', address: 'mumbai', pincode: '422203' }
+        ];
+      });
+  </script>
+
+</body>
+</html>
+
+Q.2) Develop an Express.js application that defines routes for Create operations on a resource (User).
+
+
+
+
+
+
+SLIP 14
+Q.1) Create Angular application that print the name of students who got 85% using filter and map method.
+
+app.component.html
+<h2>Students with 85%:</h2>
+<ul>
+  <li *ngFor="let name of studentsWith85Percent">{{ name }}</li>
+</ul>
+
+
+
+app.component.ts
+// src/app/app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  students = [
+    { name: 'pranjal', percentage: 91 },
+    { name: 'payal', percentage: 85 },
+    { name: 'veera', percentage: 72 },
+    { name: 'mohini', percentage: 85 },
+    { name: 'pooja', percentage: 88 }
+  ];
+
+  studentsWith85Percent: string[] = [];
+
+  ngOnInit() {
+    this.studentsWith85Percent = this.students
+      .filter(student => student.percentage === 85)
+      .map(student => student.name);
+  }
+}
+
+
+
+
+SLIP 15
+
+Q.1) Find an emp with a Salary greater than 25000 in the array. (Using find by id method)
+
+const employees = [
+  { id: 1, name: "Alice", salary: 20000 },
+  { id: 2, name: "Bob", salary: 30000 },
+  { id: 3, name: "Charlie", salary: 25000 },
+  { id: 4, name: "Diana", salary: 40000 }
+];
+
+// "findById" function
+function findById(id) {
+  return employees.find(emp => emp.id === id);
+}
+
+// Now check for salary > 25000
+for (let i = 0; i < employees.length; i++) {
+  const emp = findById(employees[i].id);
+  if (emp.salary > 25000) {
+    console.log("Found employee:", emp);
+    break; // exit after finding the first match
+  }
+}
+
+Q.2) Create Angular application that print the name of students who got 85% using filter and map method.
+
+app.component.html
+<h2>Students with 85%:</h2>
+<ul>
+  <li *ngFor="let name of studentsWith85Percent">{{ name }}</li>
+</ul>
+
+
+
+app.component.ts
+// src/app/app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  students = [
+    { name: 'pranjal', percentage: 91 },
+    { name: 'payal', percentage: 85 },
+    { name: 'veera', percentage: 72 },
+    { name: 'mohini', percentage: 85 },
+    { name: 'pooja', percentage: 88 }
+  ];
+
+  studentsWith85Percent: string[] = [];
+
+  ngOnInit() {
+    this.studentsWith85Percent = this.students
+      .filter(student => student.percentage === 85)
+      .map(student => student.name);
+  }
+}
+
+
+
+
+
+
